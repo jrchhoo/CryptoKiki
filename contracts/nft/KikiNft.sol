@@ -15,6 +15,9 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
     using Counters for Counters.Counter;
     using SafeMath for uint256;
 
+    event Mint(address to);
+    event MintBatch(address to, uint256 count);
+
     error OnlyLessThanMaxSupplyCanMint(address _to, uint256 _count);
 
     Counters.Counter private _tokenIdTracker;
@@ -192,6 +195,4 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
         return baseURI;
     }
 
-    event Mint(address to);
-    event MintBatch(address to, uint256 count);
 }
