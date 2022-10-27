@@ -13,6 +13,7 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 
 import "../interfaces/IKikiNft.sol";
 import "../interfaces/IConfig.sol";
+import "../libraries/LibConstants.sol";
 
 /**
  * @title KikiBlindBox
@@ -52,7 +53,6 @@ contract KikiBlindBox is
 
     string public baseURI;
     uint256 public sold;
-    address public receiver;
 
     bytes32 public keyHash;
     uint32 public s_subscriptionId;
@@ -74,7 +74,6 @@ contract KikiBlindBox is
     mapping(address => uint8) purchases;
 
     constructor(
-        address _receiver,
         address _kikiNft_,
         address _config_,
         address _vrfCoordinator_,
@@ -82,7 +81,6 @@ contract KikiBlindBox is
         uint32 _subscriptionId,
         string memory _baseURI
     ) ERC721("Kiki Blind Box", "KikiBox") VRFConsumerBaseV2(_vrfCoordinator_) {
-        receiver = _receiver;
         keyHash = _keyHash;
         s_subscriptionId = _subscriptionId;
         baseURI = _baseURI;
@@ -90,7 +88,7 @@ contract KikiBlindBox is
         _vrfCoordinator = VRFCoordinatorV2Interface(_vrfCoordinator_);
         _config = IConfig(_config_);
         address[] memory _supportTokens = new address[](1);
-        _supportTokens[0] = _config.keyToAddress(bytes("KKT"));
+        _supportTokens[0] = _config.keyToAddress(LibConstants.KKT);
         _setKikiBoxes(50, 100e18, _supportTokens);
     }
 
@@ -181,6 +179,7 @@ contract KikiBlindBox is
         uint256 _price,
         uint8 _count
     ) private {
+        address receiver = _config.keyToAddress(LibConstants.RECEIVER);
         IERC20(_token).safeTransferFrom(_from, receiver, _price.mul(_count));
     }
 
