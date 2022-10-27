@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
@@ -10,5 +10,7 @@ import "@openzeppelin/contracts/utils/math/Math.sol";
  */
 library LibKiki {
 
-    enum gender{male, female};
+    enum Gender{male, female}
+
+
 }
