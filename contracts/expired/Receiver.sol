@@ -41,7 +41,7 @@ contract Receiver is AccessControl, ReentrancyGuard, IReceiver {
         external
         onlyRole(DEFAULT_ADMIN_ROLE)
     {
-        grantRole(LibConstants.ERC20_OPERATOR, _operator);
+        grantRole(LibConstants.RECEIVER_OPERATOR, _operator);
         emit AddOperator(_operator);
     }
 
@@ -49,7 +49,7 @@ contract Receiver is AccessControl, ReentrancyGuard, IReceiver {
         external
         onlyRole(DEFAULT_ADMIN_ROLE)
     {
-        revokeRole(LibConstants.ERC20_OPERATOR, _operator);
+        revokeRole(LibConstants.RECEIVER_OPERATOR, _operator);
         emit RemoveOperator(_operator);
     }
 
@@ -100,7 +100,7 @@ contract Receiver is AccessControl, ReentrancyGuard, IReceiver {
     )
         external
         override
-        onlyRole(LibConstants.ERC20_OPERATOR)
+        onlyRole(LibConstants.RECEIVER_OPERATOR)
         onlySupportERC20(_token)
         enoughBalance(_token, _amount)
         nonReentrant
@@ -134,7 +134,7 @@ contract Receiver is AccessControl, ReentrancyGuard, IReceiver {
         address _token,
         address _to,
         uint256 _id
-    ) external override onlyRole(LibConstants.ERC721_OPERATOR){
+    ) external override onlyRole(LibConstants.RECEIVER_OPERATOR) {
         IERC721(_token).safeTransferFrom(address(this), _to, _id);
         emit TransactionRecord(
             "TransferERC721Out",
