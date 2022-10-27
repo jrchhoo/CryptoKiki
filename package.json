@@ -1,0 +1,22 @@
+{
+  "name": "cryptokiki",
+  "version": "1.0.0",
+  "description": "a simple crypto project with ERC20 and ERC721",
+  "scripts": {
+    "test": "npx hardhat test",
+    "clean": "npx hardhat clean",
+    "compile": "npx hardhat compile",
+    "build": "npm run clean && npm run compile",
+    "lint": "eslint \"/*.{js,ts}\" && solhint contracts//*.sol",
+    "lint:fix": "eslint --fix \"/*.{js,ts}\" && solhint --fix contracts//*.sol",
+    "format": "prettier --check \"/*.{ts,js,sol}\"",
+    "format:fix": "prettier --write \"/*.{ts,js,sol}\"",
+    "coverage": "npx hardhat coverage"
+  },
+  "author": "Will Hoo",
+  "license": "MIT",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
+    "hardhat": "^2.12.0"
+  }
+}
