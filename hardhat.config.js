@@ -1,7 +1,9 @@
 require('@nomiclabs/hardhat-ethers');
 require("@nomiclabs/hardhat-truffle5");
-require('hardhat-deploy');
-require('solidity-coverage');
+require("@nomiclabs/hardhat-waffle");
+require("ethereum-waffle");
+require("hardhat-deploy");
+require("solidity-coverage");
 
 module.exports = {
     networks: {

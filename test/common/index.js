@@ -183,6 +183,7 @@ const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 module.exports = {
     ADDRESS_ZERO,
     getBigNumber,
+    BigNumber,
 
     toUnit,
     fromUnit,

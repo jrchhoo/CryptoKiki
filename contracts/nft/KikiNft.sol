@@ -14,6 +14,7 @@ import "../interfaces/IKikiNft.sol";
 contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
     using Counters for Counters.Counter;
     using SafeMath for uint256;
+    using Strings for uint256;
 
     event Mint(address to);
     event MintBatch(address to, uint256 count);
@@ -26,24 +27,23 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
     uint256 public maxSupply;
 
     struct Info {
-        bytes32 hair;
-        bytes32 face;
-        bytes32 eye;
-        bytes32 ear;
-        bytes32 mouth;
-        bytes32 teeth;
-        bytes32 neck;
-        bytes32 body;
-        bytes32 arm;
-        bytes32 leg;
-        bytes32 foot;
-        bytes32 tail;
+        bytes3 hair;
+        bytes3 face;
+        bytes3 eye;
+        bytes3 ear;
+        bytes3 mouth;
+        bytes3 teeth;
+        bytes3 neck;
+        bytes3 body;
+        bytes3 arm;
+        bytes3 leg;
+        bytes3 foot;
+        bytes3 tail;
     }
 
     struct Kiki {
         uint8 age;
         uint8 gender;
-        uint8 color;
         uint8 rarity;
         Info info;
     }
@@ -78,7 +78,7 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
         }
         _tokenIdTracker.increment();
         uint256 newTokenId = _tokenIdTracker.current();
-        Kiki memory kiki = _getKiki(_random);
+        Kiki memory kiki = getKiki(_random);
         kikis[newTokenId] = kiki;
         rarityPools[kiki.rarity].minted += 1;
         _safeMint(_to, newTokenId);
@@ -109,7 +109,7 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
             );
     }
 
-    function _getKiki(uint256 _random) private view returns (Kiki memory) {
+    function getKiki(uint256 _random) public view returns (Kiki memory) {
         uint256 rarityCount = _random.mod(maxSupply).add(1);
         uint8 _rarity = uint8(LibMath.binary(pools, rarityCount));
         if (rarityPools[_rarity].minted >= rarityPools[_rarity].maxCount) {
@@ -118,23 +118,21 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
         uint256 random = getRandom();
         uint8 _age = uint8(random.mod(100).add(1));
         uint8 _gender = uint8(random.mod(2));
-        uint8 _color = uint8(random.mod(18));
         Kiki memory kiki = Kiki({
             age: _age,
             gender: _gender,
-            color: _color,
             rarity: _rarity,
-            info: _getKikiInfo(_random)
+            info: getKikiInfo(_random)
         });
         return kiki;
     }
 
-    function _getKikiInfo(uint256 _random) private pure returns (Info memory) {
+    function getKikiInfo(uint256 _random) public pure returns (Info memory info) {
         uint256[] memory randomness = new uint256[](12);
-        for (uint8 i = 0; i < 13; i++) {
+        for (uint256 i = 0; i < randomness.length; i++) {
             randomness[i] = uint256(keccak256(abi.encode(_random, i)));
         }
-        Info memory info = Info({
+        info = Info({
             hair: getInfoDetail(randomness[0]),
             face: getInfoDetail(randomness[1]),
             eye: getInfoDetail(randomness[2]),
@@ -151,21 +149,8 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
         return info;
     }
 
-    function getInfoDetail(uint256 _random) private pure returns (bytes32) {
-        uint256[] memory randomness = new uint256[](3);
-        for (uint8 i = 0; i < 13; i++) {
-            randomness[i] = uint256(keccak256(abi.encode(_random, i))).mod(256);
-        }
-        return
-            keccak256(
-                abi.encodePacked(
-                    randomness[0],
-                    ",",
-                    randomness[1],
-                    ",",
-                    randomness[2]
-                )
-            );
+    function getInfoDetail(uint256 _random) public pure returns (bytes3) {
+        return bytes3(keccak256(abi.encode(_random)));
     }
 
     function _initPool() private {
