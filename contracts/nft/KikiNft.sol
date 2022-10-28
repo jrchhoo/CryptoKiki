@@ -60,7 +60,7 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
     constructor(
         address _owner,
         string memory _baseURI_
-    ) ERC721("Kiki NFT", "Kiki") Mintable(_owner) {
+    ) ERC721("Kiki NFT", "Kiki") {
         baseURI = _baseURI_;
         maxSupply = 10000;
         _initPool();
@@ -194,4 +194,9 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
     }
+
+    function getMaxSupply() external override view returns (uint256){
+        return maxSupply;
+    }
+
 }

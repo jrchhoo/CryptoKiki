@@ -1,12 +1,12 @@
-module.exports = async (deployments, getNamedAccounts) => {
+module.exports = async (hre) => {
+    const { deployments, getNamedAccounts } = hre;
     const { deploy } = deployments;
-    const { deployer, owner} = await getNamedAccounts();
-
+    const { deployer, owner } = await getNamedAccounts();
     await deploy("KikiNft", {
         contract: "KikiNft",
         from: deployer,
         args: [owner, "https://ipfs.io/"],
-        log: true
+        log: true,
     });
 };
 

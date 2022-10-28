@@ -20,6 +20,10 @@ contract Config is Ownable {
     mapping(bytes32 => uint[]) public keyToUintArray;
     mapping(bytes32 => address[]) public keyToAddressArray;
 
+    constructor(address _owner) {
+        _transferOwnership(_owner);
+    }
+
     function setBytes32(bytes32 _key, bytes32 _value) external onlyOwner {
         keyToBytes32[_key] = _value;
         emit SetBytes32(_key, _value);

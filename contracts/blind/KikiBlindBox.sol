@@ -70,7 +70,7 @@ contract KikiBlindBox is
         uint256 price;
         address[] supportTokens;
     }
-    mapping(address => KikiBox) kikiBoxs;
+    mapping(address => KikiBox) kikiBoxes;
     mapping(address => uint8) purchases;
 
     constructor(
@@ -140,7 +140,7 @@ contract KikiBlindBox is
 
     function buy(address _token, uint8 _count) external nonReentrant {
         address sender = _msgSender();
-        if (_count == 0 || sold.add(_count) > _kikiNft.maxSupply()) {
+        if (_count == 0 || sold.add(_count) > _kikiNft.getMaxSupply()) {
             revert OnlyLessThanMaxSupplyCanMint(sender, _count);
         }
         if (!isTokenSupport(_token)) {
@@ -156,7 +156,7 @@ contract KikiBlindBox is
         }
         sold += _count;
         purchases[sender] += _count;
-        uint256 _price = kikiBoxs[address(_kikiNft)].price;
+        uint256 _price = kikiBoxes[address(_kikiNft)].price;
         _pay(sender, _token, _price, _count);
         emit Buy(sender, _token, _price, _count);
     }
@@ -166,7 +166,7 @@ contract KikiBlindBox is
         uint256 _price,
         address[] memory _supportTokens
     ) private {
-        kikiBoxs[address(_kikiNft)] = KikiBox({
+        kikiBoxes[address(_kikiNft)] = KikiBox({
             limit: _limit,
             price: _price,
             supportTokens: _supportTokens
@@ -184,7 +184,7 @@ contract KikiBlindBox is
     }
 
     function isTokenSupport(address _token) public view returns (bool) {
-        address[] memory _supportTokens = kikiBoxs[address(_kikiNft)]
+        address[] memory _supportTokens = kikiBoxes[address(_kikiNft)]
             .supportTokens;
         if (_supportTokens.length == 0) {
             return false;
@@ -203,7 +203,7 @@ contract KikiBlindBox is
         returns (bool)
     {
         uint8 purchase = purchases[_sender];
-        if (purchase + _count <= kikiBoxs[address(_kikiNft)].limit) {
+        if (purchase + _count <= kikiBoxes[address(_kikiNft)].limit) {
             return true;
         }
         return false;

@@ -1,11 +1,11 @@
 module.exports = async (deployments, getNamedAccounts) => {
     const { deploy } = deployments;
-    const { deployer } = await getNamedAccounts();
+    const { deployer, owner } = await getNamedAccounts();
 
     await deploy("Config", {
         contract: "Config",
         from: deployer,
-        args: [],
+        args: [owner],
         log: true
     });
 };

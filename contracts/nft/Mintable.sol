@@ -8,10 +8,6 @@ abstract contract Mintable is Ownable {
 
     mapping(address => bool) minters;
 
-    constructor (address _owner) {
-        _transferOwnership(_owner);
-    }
-
     function addMinter(address _minter) external onlyOwner {
         minters[_minter] = true;
     }

@@ -1,18 +1,15 @@
 const {BigNumber} = require('ethers');
-const time = require('./time');
-const {expect, assert} = require('chai');
+const {expect, assert, chai} = require('chai');
 const {artifacts, ethers, deployments} = require('hardhat');
 
 const TransparentUpgradeableProxy = require('hardhat-deploy/extendedArtifacts/TransparentUpgradeableProxy.json');
 
-const BASE_TEN = 10;
-const {ADDRESS_ZERO, ADDRESS_BNB} = require('../../utils/constants');
 
 const toWei = ethers.utils.parseEther;
 const fromWei = ethers.utils.formatEther;
 
 function getBigNumber(amount, decimals = 18) {
-    return BigNumber.from(amount).mul(BigNumber.from(BASE_TEN).pow(decimals));
+    return BigNumber.from(amount).mul(BigNumber.from(10).pow(decimals));
 }
 
 async function getContract(name) {
@@ -181,31 +178,24 @@ async function getAccounts() {
     return {...namedAccounts, users};
 }
 
+const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
+
 module.exports = {
-    BASE_TEN,
     ADDRESS_ZERO,
     getBigNumber,
-
-    takeSnapshot,
-    restoreSnapshot,
-
-    addSnapshotBeforeRestoreAfterEach,
-    addSnapshotBeforeRestoreAfter,
 
     toUnit,
     fromUnit,
 
     onlyGivenAddressCanInvoke,
 
-    mockToken,
-    mockNFT,
     setupContract,
     ensureOnlyExpectedMutativeFunctions,
 
     getContract,
-    setupUsers,
-    setupUser,
     withSnapshot,
     getAccounts,
-    ...time,
+    expect,
+    assert,
+    ethers
 };
