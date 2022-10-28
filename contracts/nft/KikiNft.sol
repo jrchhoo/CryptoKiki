@@ -16,7 +16,7 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
     using SafeMath for uint256;
     using Strings for uint256;
 
-    event Mint(address to);
+    event Mint(address to, uint256 tokenId);
     event MintBatch(address to, uint256 count);
 
     error OnlyLessThanMaxSupplyCanMint(address _to, uint256 _count);
@@ -82,7 +82,7 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
         kikis[newTokenId] = kiki;
         rarityPools[kiki.rarity].minted += 1;
         _safeMint(_to, newTokenId);
-        emit Mint(_to);
+        emit Mint(_to, newTokenId);
         return newTokenId;
     }
 

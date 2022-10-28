@@ -164,6 +164,17 @@ describe("Kiki Nft Test", () => {
             ).to.be.revertedWith("Mintable: caller should be minter");
         });
 
-        it("should success when caller is minter", async () => {});
+        it("should success when caller is minter", async () => {
+            const random = await kikiNft.getRandom();
+            await kikiNft.connect(owner).addMinter(minter1.address);
+            await expect(kikiNft.connect(minter1).mint(minter2.address, random))
+                .to.be.emit(kikiNft, "Mint")
+                .withArgs(minter2.address, 1);
+            const totalSupply = await kikiNft.totalSupply();
+            assert.equal(totalSupply, 1, "total supply is 1");
+            const kiki = await kikiNft.kikis(1);
+            const pool = await kikiNft.rarityPools(kiki.rarity);
+            assert.equal(pool.minted, 1, "minted count is 1");
+        });
     });
 });
