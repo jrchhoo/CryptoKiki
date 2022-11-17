@@ -132,9 +132,9 @@ contract KikiBlindBox is
             VRF_CALLBACK_GAS_LIMIT,
             VRF_NUM_WORDS
         );
-        safeTransferFrom(sender, address(this), _tokenId);
         _requestIdToCaller[requestId] = sender;
         _requestIdToTokenId[requestId] = _tokenId;
+        safeTransferFrom(sender, address(this), _tokenId);
         emit Open(sender, _tokenId, requestId);
     }
 
