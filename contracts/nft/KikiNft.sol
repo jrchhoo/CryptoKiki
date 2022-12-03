@@ -17,7 +17,6 @@ contract KikiNft is ERC721Enumerable, Mintable, IKikiNft {
     using Strings for uint256;
 
     event Mint(address to, uint256 tokenId);
-    event MintBatch(address to, uint256 count);
 
     error OnlyLessThanMaxSupplyCanMint(address _to, uint256 _count);
 

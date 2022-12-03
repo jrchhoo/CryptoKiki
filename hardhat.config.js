@@ -4,6 +4,8 @@ require("@nomiclabs/hardhat-waffle");
 require("ethereum-waffle");
 require("hardhat-deploy");
 require("solidity-coverage");
+require("@openzeppelin/hardhat-upgrades");
+require('./tasks');
 
 module.exports = {
     networks: {
