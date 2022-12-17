@@ -3,7 +3,7 @@
   "proxies": [
     {
       "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
-      "txHash": "0xa53075656b4144e0fd21a32115005c1e54e1f2d6dacb4416950c06ea57ecfe3b",
+      "txHash": "0x86201d5bb8e0c6571a9c5d2487c31f74e4a1a0c82564a5e76b87077d66f937e6",
       "kind": "transparent"
     },
     {
@@ -1047,6 +1047,107 @@
               }
             ],
             "numberOfBytes": "160"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "59f19617d32a61a09dabe04fd08bf7e659313af5fb90a5b8252a4644bf1fd9de": {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "txHash": "0x0388bf1754c9e5b5707fe48d32003a7288278790fd3a11bfdcc80108630e5725",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "old",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "DemoV2",
+            "src": "contracts/upgrade/DemoV2.sol:17"
+          },
+          {
+            "label": "users",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_struct(User)466_storage)",
+            "contract": "DemoV2",
+            "src": "contracts/upgrade/DemoV2.sol:18"
+          },
+          {
+            "label": "version",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "DemoV2",
+            "src": "contracts/upgrade/DemoV2.sol:19"
+          }
+        ],
+        "types": {
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_uint256,t_struct(User)466_storage)": {
+            "label": "mapping(uint256 => struct DemoV2.User)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(User)466_storage": {
+            "label": "struct DemoV2.User",
+            "members": [
+              {
+                "label": "id",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "age",
+                "type": "t_uint8",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "state",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
           },
           "t_uint256": {
             "label": "uint256",

@@ -2,8 +2,6 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "./ParentA.sol";
-// import "./ParentB.sol";
 
 contract DemoV2 is Initializable{
 
@@ -25,7 +23,6 @@ contract DemoV2 is Initializable{
     }
 
     function initializeV2(uint256 v) reinitializer(2) public {
-        // _parentB_init();
         version = v;
         old = 2;
         users[1].state = true;
